@@ -1,0 +1,2 @@
+This repo contains some implementations of sorting algorithms written by me on the 2023 New Year holidays.
+The purpose is relaxing my mind by writing well-known stupid-simple algorithms instead of business tasks or buttons coloring:)
