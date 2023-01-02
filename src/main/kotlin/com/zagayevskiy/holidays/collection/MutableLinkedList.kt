@@ -64,7 +64,7 @@ private fun <T> Iterable<T>.asNodes(): MutableLinkedList.Node<T>? {
 }
 
 
-private class MutableLinkedListNodeIterator<T>(private var cursor: MutableLinkedList.Node<T>?) : Iterator<T> {
+internal class MutableLinkedListNodeIterator<T>(private var cursor: MutableLinkedList.Node<T>?) : Iterator<T> {
     override fun hasNext(): Boolean = cursor != null
 
     override fun next(): T {

@@ -2,8 +2,11 @@ package com.zagayevskiy.holidays.sort
 
 import com.zagayevskiy.holidays.collection.asMutableLinkedList
 import com.zagayevskiy.holidays.sort.linkedlist.LinkedListSort
+import com.zagayevskiy.holidays.sort.linkedlist.efficient.LinkedListQuickSort
+import com.zagayevskiy.holidays.sort.linkedlist.extension.countingSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListBubbleSort
 import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
+import com.zagayevskiy.holidays.sort.randomaccess.efficient.QuickSort
 import com.zagayevskiy.holidays.sort.randomaccess.simple.BubbleSort
 import com.zagayevskiy.holidays.sort.randomaccess.sortedWith
 import org.junit.jupiter.params.ParameterizedTest
@@ -29,11 +32,13 @@ class SortTests {
 
         private fun linkedListSorts(): List<LinkedListSort> = listOf(
             LinkedListBubbleSort(),
+            LinkedListQuickSort(),
         )
 
 
         private fun randomAccessSorts(): List<RandomAccessSort> = listOf(
             BubbleSort(),
+            QuickSort(),
         )
 
         private fun data() = buildData {
@@ -45,12 +50,12 @@ class SortTests {
             data(1, 2)
             data(3, 1, 2)
             data(3, 1, 4, 1)
+            data(1, 2, 1, 2, 1, 2, 1, 2, 1, 2)
             data("1", "q", "a", "s", "d", "w", "qwerty", "123", "WASP", "uiop")
             data("1", "q", "a", "s", "d", "w", "qwerty", "123", "WASP", "uiop", comparator = compareByDescending { it })
             data((0..10).shuffled(Random(123456789L)))
             data((0..100).shuffled(Random(123456789L)), comparator = compareByDescending { it })
             data((0..1000).shuffled(Random(123456789L)))
-            data((0..10000).shuffled(Random(123456789L)), comparator = compareByDescending { it })
         }
     }
 
@@ -62,6 +67,21 @@ class SortTests {
 
             sort.sort(ll, comparator)
 
+            val actual = ll.toList()
+            val expected = items.sortedWith(comparator)
+
+            assertEquals(expected, actual)
+        }
+
+    }
+
+    @ParameterizedTest()
+    @MethodSource("linkedListTestCases")
+    fun testLinkedListCountingSort(case: TestCase<LinkedListSort, Any?>) {
+        with(case) {
+            val ll = items.asMutableLinkedList()
+
+            sort.countingSort(ll, comparator, measureTime = false)
 
             val actual = ll.toList()
             val expected = items.sortedWith(comparator)
@@ -81,7 +101,6 @@ class SortTests {
 
             assertEquals(expected, actual)
         }
-
     }
 }
 

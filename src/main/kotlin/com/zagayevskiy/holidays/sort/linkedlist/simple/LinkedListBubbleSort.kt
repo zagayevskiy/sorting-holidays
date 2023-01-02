@@ -10,20 +10,16 @@ class LinkedListBubbleSort : LinkedListSort {
 
     override val name: String = "Bubble Sort"
 
-    override fun <T> sort(items: MutableLinkedList<T>, comparator: Comparator<T>) {
-        bubbleSort(items, comparator)
+    override fun <T> sort(items: MutableLinkedList<T>, comparator: Comparator<T>, temporaryNodeBuilder: (child: Node<T>?) -> Node<T>) {
+        items.head = bubbleSort(items.head ?: return, comparator, temporaryNodeBuilder)
     }
 
-    private fun <T> bubbleSort(list: MutableLinkedList<T>, comparator: Comparator<T>) {
-        list.head = bubbleSort(list.head ?: return, comparator)
-    }
-
-    private fun <T> bubbleSort(head: Node<T>, comparator: Comparator<T>): Node<T> {
+    private fun <T> bubbleSort(head: Node<T>, comparator: Comparator<T>, temporaryNodeBuilder: (child: Node<T>?) -> Node<T>): Node<T> {
         if (head.next == null) return head
 
         var endCursor: Node<T>? = null
 
-        val resultHolder: Node<T> = MutableLinkedListImpl.NodeImpl(head.value, head)
+        val resultHolder: Node<T> = temporaryNodeBuilder(head)
 
         do {
             var newEndCursor: Node<T>? = null
