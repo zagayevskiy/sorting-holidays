@@ -1,5 +1,6 @@
 package com.zagayevskiy.holidays.sort
 
+import com.zagayevskiy.holidays.collection.asCountingList
 import com.zagayevskiy.holidays.collection.asMutableLinkedList
 import com.zagayevskiy.holidays.sort.linkedlist.LinkedListSort
 import com.zagayevskiy.holidays.sort.linkedlist.efficient.LinkedListQuickSort
@@ -7,6 +8,7 @@ import com.zagayevskiy.holidays.sort.linkedlist.extension.countingSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListBubbleSort
 import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.QuickSort
+import com.zagayevskiy.holidays.sort.randomaccess.extension.sortCounting
 import com.zagayevskiy.holidays.sort.randomaccess.simple.BubbleSort
 import com.zagayevskiy.holidays.sort.randomaccess.sortedWith
 import org.junit.jupiter.params.ParameterizedTest
@@ -95,8 +97,20 @@ class SortTests {
     @MethodSource("randomAccessTestCases")
     fun testRandomAccessSort(case: TestCase<RandomAccessSort, Any?>) {
         with(case) {
-
             val actual = items.sortedWith(sort, comparator)
+            val expected = items.sortedWith(comparator)
+
+            assertEquals(expected, actual)
+        }
+    }
+
+    @ParameterizedTest()
+    @MethodSource("randomAccessTestCases")
+    fun testRandomAccessCountingSort(case: TestCase<RandomAccessSort, Any?>) {
+        with(case) {
+            val mutableItems = items.toMutableList()
+            mutableItems.sortCounting(sort, comparator)
+            val actual = mutableItems.toList()
             val expected = items.sortedWith(comparator)
 
             assertEquals(expected, actual)

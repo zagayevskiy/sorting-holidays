@@ -5,8 +5,6 @@ import com.zagayevskiy.holidays.sort.NamedSort
 interface RandomAccessSort: NamedSort {
     fun <T> sort(list: MutableList<T>, comparator: Comparator<T>)
 }
-
-
 fun <T : Comparable<T>> Collection<T>.sortedWith(sort: RandomAccessSort): List<T> {
     return sortedWith(sort, compareBy { it })
 }
