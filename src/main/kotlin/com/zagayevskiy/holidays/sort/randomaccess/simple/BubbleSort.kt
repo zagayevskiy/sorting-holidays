@@ -1,5 +1,6 @@
 package com.zagayevskiy.holidays.sort.randomaccess.simple
 
+import com.zagayevskiy.holidays.collection.swap
 import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
 
 class BubbleSort : RandomAccessSort {
@@ -21,11 +22,5 @@ class BubbleSort : RandomAccessSort {
                 }
             }
         } while (endIndexExclusive != 0)
-    }
-
-    private fun <T> MutableList<T>.swap(i: Int, j: Int) {
-        val valueI = get(i)
-        set(i, get(j))
-        set(j, valueI)
     }
 }

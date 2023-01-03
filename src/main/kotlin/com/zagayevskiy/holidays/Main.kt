@@ -6,16 +6,21 @@ import com.zagayevskiy.holidays.sort.linkedlist.LinkedListSort
 import com.zagayevskiy.holidays.sort.linkedlist.efficient.LinkedListQuickSort
 import com.zagayevskiy.holidays.sort.linkedlist.extension.countingSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListBubbleSort
+import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListSelectionSort
 import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.QuickSort
 import com.zagayevskiy.holidays.sort.randomaccess.extension.sortCounting
 import com.zagayevskiy.holidays.sort.randomaccess.simple.BubbleSort
+import com.zagayevskiy.holidays.sort.randomaccess.simple.SelectionSort
 
 fun main() {
     val list = (0..10000).shuffled()
     test(LinkedListQuickSort(), list)
+    test(LinkedListSelectionSort(), list)
     test(LinkedListBubbleSort(), list)
+
     test(QuickSort(), list)
+    test(SelectionSort(), list)
     test(BubbleSort(), list)
 }
 

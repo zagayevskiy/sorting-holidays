@@ -1,5 +1,6 @@
 package com.zagayevskiy.holidays.sort.randomaccess.efficient
 
+import com.zagayevskiy.holidays.collection.swap
 import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
 
 class QuickSort : RandomAccessSort {
@@ -42,11 +43,5 @@ class QuickSort : RandomAccessSort {
         swap(endInclusive, tempPivot)
 
         return tempPivot
-    }
-
-    private fun <T> MutableList<T>.swap(i: Int, j: Int) {
-        val valueI = get(i)
-        set(i, get(j))
-        set(j, valueI)
     }
 }
