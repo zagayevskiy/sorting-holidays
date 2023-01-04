@@ -9,7 +9,7 @@ class CountingMutableList<T> private constructor(private val wrapped: MutableLis
     MutableList<T> by wrapped,
     ListStatsCounter by counterDelegate {
 
-    constructor(wrapped: MutableList<T>) : this(wrapped, DefaultStateCounter())
+    constructor(wrapped: Iterable<T>) : this(wrapped.toMutableList(), (wrapped as? ListStatsCounter) ?: DefaultStateCounter())
 
     override fun get(index: Int): T {
         readCount++

@@ -5,7 +5,8 @@ import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
 
 class BubbleSort : RandomAccessSort {
     override val name = "Bubble sort"
-    override fun <T> sort(list: MutableList<T>, comparator: Comparator<T>) {
+    override val declaredStability = true
+    override fun <T> sort(list: MutableList<T>, comparator: Comparator<T>, additionalMemoryConstructor: (List<T>) -> MutableList<T>) {
         bubbleSort(list, comparator)
     }
 

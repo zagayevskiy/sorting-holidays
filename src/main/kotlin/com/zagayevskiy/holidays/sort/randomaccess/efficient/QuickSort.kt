@@ -5,8 +5,9 @@ import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
 
 class QuickSort : RandomAccessSort {
     override val name = "Qsort"
+    override val declaredStability = false
 
-    override fun <T> sort(list: MutableList<T>, comparator: Comparator<T>) {
+    override fun <T> sort(list: MutableList<T>, comparator: Comparator<T>, additionalMemoryConstructor: (List<T>) -> MutableList<T>) {
         qsort(
             list,
             comparator,

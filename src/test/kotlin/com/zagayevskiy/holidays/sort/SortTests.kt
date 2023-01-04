@@ -1,6 +1,5 @@
 package com.zagayevskiy.holidays.sort
 
-import com.zagayevskiy.holidays.collection.asCountingList
 import com.zagayevskiy.holidays.collection.asMutableLinkedList
 import com.zagayevskiy.holidays.sort.linkedlist.LinkedListSort
 import com.zagayevskiy.holidays.sort.linkedlist.efficient.LinkedListQuickSort
@@ -8,6 +7,7 @@ import com.zagayevskiy.holidays.sort.linkedlist.extension.countingSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListBubbleSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListSelectionSort
 import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
+import com.zagayevskiy.holidays.sort.randomaccess.efficient.MergeSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.QuickSort
 import com.zagayevskiy.holidays.sort.randomaccess.extension.sortCounting
 import com.zagayevskiy.holidays.sort.randomaccess.simple.BubbleSort
@@ -19,6 +19,7 @@ import java.util.*
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 fun buildData(block: SortableDataBuilder.() -> Unit): List<Data<Any?>> {
     return SortableDataBuilder().apply(block).build()
@@ -45,6 +46,8 @@ class SortTests {
             BubbleSort(),
             SelectionSort(),
             QuickSort(),
+            MergeSort(MergeSort.Mode.BottomUp),
+            MergeSort(MergeSort.Mode.TopDown)
         )
 
         private fun data() = buildData {
@@ -113,11 +116,14 @@ class SortTests {
     fun testRandomAccessCountingSort(case: TestCase<RandomAccessSort, Any?>) {
         with(case) {
             val mutableItems = items.toMutableList()
-            mutableItems.sortCounting(sort, comparator)
+            val result = mutableItems.sortCounting(sort, comparator)
             val actual = mutableItems.toList()
             val expected = items.sortedWith(comparator)
 
             assertEquals(expected, actual)
+            if (sort.declaredStability) {
+                assertTrue(result.sortedStably, "${sort.name} declare stability but sorted not stably")
+            }
         }
     }
 }
