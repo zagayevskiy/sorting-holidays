@@ -5,7 +5,6 @@ import com.zagayevskiy.holidays.collection.MutableLinkedList.Node
 import com.zagayevskiy.holidays.sort.NamedSort
 
 interface LinkedListSort : NamedSort {
-    override val declaredStability get() = false //TODO
     fun <T> sort(items: MutableLinkedList<T>, comparator: Comparator<T>, temporaryNodeBuilder: (child: Node<T>?) -> Node<T> = ::TemporaryNode)
 }
 

@@ -6,6 +6,7 @@ import com.zagayevskiy.holidays.sort.linkedlist.LinkedListSort
 
 class LinkedListSelectionSort : LinkedListSort {
     override val name = "Selection sort"
+    override val declaredStability = true
 
     override fun <T> sort(items: MutableLinkedList<T>, comparator: Comparator<T>, temporaryNodeBuilder: (child: Node<T>?) -> Node<T>) {
         items.head = selectionSort(items.head ?: return, comparator, temporaryNodeBuilder)

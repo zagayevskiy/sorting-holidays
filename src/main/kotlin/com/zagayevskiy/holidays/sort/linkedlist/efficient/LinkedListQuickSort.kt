@@ -6,6 +6,7 @@ import com.zagayevskiy.holidays.sort.linkedlist.LinkedListSort
 
 class LinkedListQuickSort : LinkedListSort {
     override val name = "Qsort"
+    override val declaredStability = false
 
     override fun <T> sort(items: MutableLinkedList<T>, comparator: Comparator<T>, temporaryNodeBuilder: (child: Node<T>?) -> Node<T>) {
         items.head = items.head?.qsort(comparator)

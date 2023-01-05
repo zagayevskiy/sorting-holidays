@@ -2,6 +2,7 @@ package com.zagayevskiy.holidays.sort
 
 import com.zagayevskiy.holidays.collection.asMutableLinkedList
 import com.zagayevskiy.holidays.sort.linkedlist.LinkedListSort
+import com.zagayevskiy.holidays.sort.linkedlist.efficient.LinkedListMergeSort
 import com.zagayevskiy.holidays.sort.linkedlist.efficient.LinkedListQuickSort
 import com.zagayevskiy.holidays.sort.linkedlist.extension.countingSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListBubbleSort
@@ -39,6 +40,7 @@ class SortTests {
             LinkedListBubbleSort(),
             LinkedListSelectionSort(),
             LinkedListQuickSort(),
+            LinkedListMergeSort(),
         )
 
 
@@ -61,7 +63,8 @@ class SortTests {
             data(3, 1, 4, 1)
             data(1, 2, 1, 2, 1, 2, 1, 2, 1, 2)
             data("1", "q", "a", "s", "d", "w", "qwerty", "123", "WASP", "uiop")
-            data("1", "q", "a", "s", "d", "w", "qwerty", "123", "WASP", "uiop", comparator = compareByDescending { it })
+            data("1", "a", "q", "qwerty", "a", "s", "d", "w", "qwerty", "123", "qwerty", "WASP", "uiop", "a", "a")
+            data("1", "q", "a", "s", "d", "w", "qwerty", "123", "WASP", "uiop", "123", comparator = compareByDescending { it })
             data((0..10).shuffled(Random(123456789L)))
             data((0..100).shuffled(Random(123456789L)), comparator = compareByDescending { it })
             data((0..1000).shuffled(Random(123456789L)))
@@ -90,14 +93,16 @@ class SortTests {
         with(case) {
             val ll = items.asMutableLinkedList()
 
-            sort.countingSort(ll, comparator, measureTime = false)
+            val result = sort.countingSort(ll, comparator)
 
             val actual = ll.toList()
             val expected = items.sortedWith(comparator)
 
             assertEquals(expected, actual)
+            if (sort.declaredStability) {
+                assertTrue(result.sortedStably, "${sort.name} declare stability but sorted not stably")
+            }
         }
-
     }
 
     @ParameterizedTest()

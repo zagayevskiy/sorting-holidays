@@ -7,8 +7,8 @@ import com.zagayevskiy.holidays.sort.linkedlist.LinkedListSort
 
 
 class LinkedListBubbleSort : LinkedListSort {
-
     override val name: String = "Bubble Sort"
+    override val declaredStability = true
 
     override fun <T> sort(items: MutableLinkedList<T>, comparator: Comparator<T>, temporaryNodeBuilder: (child: Node<T>?) -> Node<T>) {
         items.head = bubbleSort(items.head ?: return, comparator, temporaryNodeBuilder)

@@ -5,7 +5,7 @@ import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
 
 class SelectionSort : RandomAccessSort {
     override val name = "Selection sort"
-    override val declaredStability = true
+    override val declaredStability = false
 
     override fun <T> sort(list: MutableList<T>, comparator: Comparator<T>, additionalMemoryConstructor: (List<T>) -> MutableList<T>) {
         if (list.size <= 1) return

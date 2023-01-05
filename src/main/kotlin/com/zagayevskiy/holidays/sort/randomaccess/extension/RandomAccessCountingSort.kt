@@ -1,6 +1,7 @@
 package com.zagayevskiy.holidays.sort.randomaccess.extension
 
 import com.zagayevskiy.holidays.collection.asCountingList
+import com.zagayevskiy.holidays.collection.hasStableIndices
 import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
 
 data class RandomAccessSortStatistics(val compares: Long, val writes: Long, val reads: Long, val sortedStably: Boolean)
@@ -22,12 +23,6 @@ fun <T> MutableList<T>.sortCounting(sort: RandomAccessSort, comparator: Comparat
 
     val reads = countingList.readCount
     val writes = countingList.writeCount
-    val stable = countingList
-        .asSequence()
-        .windowed(size = 2, step = 2)
-        .all { (left, right) ->
-            comparator.compare(left.value, right.value) != 0 || left.index < right.index
-        }
 
     clear()
     addAll(countingList.map { (_, value) -> value })
@@ -36,6 +31,6 @@ fun <T> MutableList<T>.sortCounting(sort: RandomAccessSort, comparator: Comparat
         compares = compares,
         writes = writes,
         reads = reads,
-        sortedStably = stable,
+        sortedStably = countingList.hasStableIndices(comparator),
     )
 }
