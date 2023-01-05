@@ -46,7 +46,8 @@ class SortTests {
 
         private fun randomAccessSorts(): List<RandomAccessSort> = listOf(
             BubbleSort(),
-            SelectionSort(),
+            SelectionSort(SelectionSort.Mode.Unstable),
+            SelectionSort(SelectionSort.Mode.Stable),
             QuickSort(),
             MergeSort(MergeSort.Mode.BottomUp),
             MergeSort(MergeSort.Mode.TopDown)
@@ -64,6 +65,7 @@ class SortTests {
             data(1, 2, 1, 2, 1, 2, 1, 2, 1, 2)
             data("1", "q", "a", "s", "d", "w", "qwerty", "123", "WASP", "uiop")
             data("1", "a", "q", "qwerty", "a", "s", "d", "w", "qwerty", "123", "qwerty", "WASP", "uiop", "a", "a")
+            data("1", "a", "q", "qwerty", "a", "s", "d", "w", "qwerty", "123", "qwerty", "WASP", "uiop", "a", "a", comparator = compareByDescending { it })
             data("1", "q", "a", "s", "d", "w", "qwerty", "123", "WASP", "uiop", "123", comparator = compareByDescending { it })
             data((0..10).shuffled(Random(123456789L)))
             data((0..100).shuffled(Random(123456789L)), comparator = compareByDescending { it })

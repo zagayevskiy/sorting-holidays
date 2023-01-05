@@ -25,7 +25,8 @@ fun main() {
     test(MergeSort(MergeSort.Mode.BottomUp), list)
     test(MergeSort(MergeSort.Mode.TopDown), list)
     test(QuickSort(), list)
-    test(SelectionSort(), list)
+    test(SelectionSort(SelectionSort.Mode.Stable), list)
+    test(SelectionSort(SelectionSort.Mode.Unstable), list)
     test(BubbleSort(), list)
 }
 
