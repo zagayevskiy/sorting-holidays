@@ -30,6 +30,7 @@ fun main() {
     test(SelectionSort(SelectionSort.Mode.Unstable), list)
     test(BubbleSort(), list)
     test(TreeSort(TreeSort.Mode.Naive), list)
+    test(TreeSort(TreeSort.Mode.RB), list)
 }
 
 fun test(sort: LinkedListSort, case: List<Int>) {

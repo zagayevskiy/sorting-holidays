@@ -8,6 +8,7 @@ import java.util.stream.Stream
 import java.util.stream.StreamSupport
 import kotlin.random.Random
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class TreeTests {
     companion object {
@@ -15,13 +16,17 @@ class TreeTests {
         @JvmStatic
         private fun testCases() = treeBuilders() * data()
 
+        @JvmStatic
         private fun data() = listOf(
             emptyList(),
             listOf("q"),
             listOf("q", "a"),
+            listOf("a", "q"),
             listOf("q", "a", "w"),
-            listOf("q", "a", "w", "a"),
-            listOf("q", "a", "w", "a", "qwerty"),
+            listOf("1", "2", "3"),
+            listOf("3", "2", "1"),
+            listOf("s", "q", "a", "w", "a"),
+            listOf("q", "w", "a", "w", "a", "qwerty"),
             listOf("q", "a", "w", "a", "qwerty", "uiop"),
             (0..10).shuffled(Random(1L)).map { it.toString() },
             ((0..100) + (0..100)).shuffled(Random(1L)).map { it.toString() },
@@ -29,6 +34,7 @@ class TreeTests {
         )
 
         private fun treeBuilders() = listOf<TreeBuilder>(
+            { RedBlackTree(compareBy { it }) },
             { NaiveSearchTree(compareBy { it }) },
         )
     }
@@ -41,7 +47,52 @@ class TreeTests {
         val expected = case.list.sorted()
         val actual = tree.asDfsIterable().toList()
         assertEquals(expected, actual)
+    }
 
+    @ParameterizedTest
+    @MethodSource("data")
+    fun checkRbTreeRequirements(list: List<String>) {
+        with(RedBlackTree<String>(compareBy { it })) {
+            insertAll(list)
+            assertRootBlack()
+            assertChildrenOfRedIsBlack()
+            assertAllPathsContainsSameBlackNodesCount()
+        }
+    }
+
+    private fun RedBlackTree<*>.assertRootBlack() {
+        assertTrue { root?.black ?: true }
+    }
+
+    private fun RedBlackTree<*>.assertChildrenOfRedIsBlack() {
+        val stack = ArrayDeque<RedBlackTree.Node<*>>()
+        root?.let(stack::addLast)
+        while (stack.isNotEmpty()) {
+            val node = stack.removeLast()
+            if (node.red) {
+                assertTrue(node.left?.black ?: true)
+                assertTrue(node.right?.black ?: true)
+            }
+            node.left?.let(stack::addLast)
+            node.right?.let(stack::addLast)
+        }
+    }
+
+    private fun RedBlackTree<*>.assertAllPathsContainsSameBlackNodesCount() {
+        root?.countAndCheckBlackNodes()
+    }
+
+    private fun RedBlackTree.Node<*>.countAndCheckBlackNodes(): Int {
+        val leftCount = left?.countAndCheckBlackNodes() ?: 0
+        val rightCount = right?.countAndCheckBlackNodes() ?: 0
+
+        assertEquals(leftCount, rightCount, "black nodes count in left and right must be same")
+
+        return if (black) {
+            leftCount + 1;
+        } else {
+            leftCount
+        }
     }
 }
 

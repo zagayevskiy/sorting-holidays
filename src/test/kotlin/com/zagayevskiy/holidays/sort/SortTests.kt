@@ -53,6 +53,7 @@ class SortTests {
             MergeSort(MergeSort.Mode.BottomUp),
             MergeSort(MergeSort.Mode.TopDown),
             TreeSort(TreeSort.Mode.Naive),
+            TreeSort(TreeSort.Mode.RB),
         )
 
         private fun data() = buildData {

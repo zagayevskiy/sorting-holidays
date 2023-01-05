@@ -1,6 +1,7 @@
 package com.zagayevskiy.holidays.sort.randomaccess.tree
 
 import com.zagayevskiy.holidays.collection.trees.NaiveSearchTree
+import com.zagayevskiy.holidays.collection.trees.RedBlackTree
 import com.zagayevskiy.holidays.collection.trees.Tree
 import com.zagayevskiy.holidays.collection.trees.extensions.asDfsIterable
 import com.zagayevskiy.holidays.collection.trees.extensions.insertAll
@@ -13,11 +14,13 @@ class TreeSort(private val mode: Mode) : RandomAccessSort {
 
     enum class Mode(val namePrefix: String) {
         Naive("Naive"),
+        RB("RB"),
     }
 
     override fun <T> sort(list: MutableList<T>, comparator: Comparator<T>, additionalMemoryConstructor: (List<T>) -> MutableList<T>) {
         val tree: Tree<T> = when (mode) {
             Mode.Naive -> NaiveSearchTree(comparator)
+            Mode.RB -> RedBlackTree(comparator)
         }
 
         tree.insertAll(list)
