@@ -14,6 +14,7 @@ import com.zagayevskiy.holidays.sort.randomaccess.efficient.QuickSort
 import com.zagayevskiy.holidays.sort.randomaccess.extension.sortCounting
 import com.zagayevskiy.holidays.sort.randomaccess.simple.BubbleSort
 import com.zagayevskiy.holidays.sort.randomaccess.simple.SelectionSort
+import com.zagayevskiy.holidays.sort.randomaccess.tree.TreeSort
 
 fun main() {
     val list = (0..10000).shuffled() + (0..100).shuffled()
@@ -28,6 +29,7 @@ fun main() {
     test(SelectionSort(SelectionSort.Mode.Stable), list)
     test(SelectionSort(SelectionSort.Mode.Unstable), list)
     test(BubbleSort(), list)
+    test(TreeSort(TreeSort.Mode.Naive), list)
 }
 
 fun test(sort: LinkedListSort, case: List<Int>) {

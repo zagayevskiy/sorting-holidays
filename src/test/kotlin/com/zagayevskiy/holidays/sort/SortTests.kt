@@ -14,6 +14,7 @@ import com.zagayevskiy.holidays.sort.randomaccess.extension.sortCounting
 import com.zagayevskiy.holidays.sort.randomaccess.simple.BubbleSort
 import com.zagayevskiy.holidays.sort.randomaccess.simple.SelectionSort
 import com.zagayevskiy.holidays.sort.randomaccess.sortedWith
+import com.zagayevskiy.holidays.sort.randomaccess.tree.TreeSort
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.*
@@ -50,7 +51,8 @@ class SortTests {
             SelectionSort(SelectionSort.Mode.Stable),
             QuickSort(),
             MergeSort(MergeSort.Mode.BottomUp),
-            MergeSort(MergeSort.Mode.TopDown)
+            MergeSort(MergeSort.Mode.TopDown),
+            TreeSort(TreeSort.Mode.Naive),
         )
 
         private fun data() = buildData {

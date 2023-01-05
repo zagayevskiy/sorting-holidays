@@ -11,6 +11,26 @@ class CountingMutableList<T> private constructor(private val wrapped: MutableLis
 
     constructor(wrapped: Iterable<T>) : this(wrapped.toMutableList(), (wrapped as? ListStatsCounter) ?: DefaultStateCounter())
 
+    override fun add(element: T): Boolean {
+        writeCount++
+        return wrapped.add(element)
+    }
+
+    override fun add(index: Int, element: T) {
+        writeCount += size - index
+        wrapped.add(index, element)
+    }
+
+    override fun addAll(elements: Collection<T>): Boolean {
+        writeCount += elements.size
+        return wrapped.addAll(elements)
+    }
+
+    override fun addAll(index: Int, elements: Collection<T>): Boolean {
+        writeCount += elements.size
+        return wrapped.addAll(index, elements)
+    }
+
     override fun get(index: Int): T {
         readCount++
         return wrapped[index]
