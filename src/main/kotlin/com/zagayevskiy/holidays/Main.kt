@@ -7,12 +7,14 @@ import com.zagayevskiy.holidays.sort.linkedlist.efficient.LinkedListMergeSort
 import com.zagayevskiy.holidays.sort.linkedlist.efficient.LinkedListQuickSort
 import com.zagayevskiy.holidays.sort.linkedlist.extension.countingSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListBubbleSort
+import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListInsertionSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListSelectionSort
 import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.MergeSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.QuickSort
 import com.zagayevskiy.holidays.sort.randomaccess.extension.sortCounting
 import com.zagayevskiy.holidays.sort.randomaccess.simple.BubbleSort
+import com.zagayevskiy.holidays.sort.randomaccess.simple.InsertionSort
 import com.zagayevskiy.holidays.sort.randomaccess.simple.SelectionSort
 import com.zagayevskiy.holidays.sort.randomaccess.tree.TreeSort
 
@@ -20,12 +22,14 @@ fun main() {
     val list = (0..10000).shuffled() + (0..100).shuffled()
     test(LinkedListMergeSort(), list)
     test(LinkedListQuickSort(), list)
+    test(LinkedListInsertionSort(), list)
     test(LinkedListSelectionSort(), list)
     test(LinkedListBubbleSort(), list)
 
     test(MergeSort(MergeSort.Mode.BottomUp), list)
     test(MergeSort(MergeSort.Mode.TopDown), list)
     test(QuickSort(), list)
+    test(InsertionSort(), list)
     test(SelectionSort(SelectionSort.Mode.Stable), list)
     test(SelectionSort(SelectionSort.Mode.Unstable), list)
     test(BubbleSort(), list)

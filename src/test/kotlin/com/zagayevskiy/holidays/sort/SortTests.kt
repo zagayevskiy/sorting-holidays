@@ -6,12 +6,14 @@ import com.zagayevskiy.holidays.sort.linkedlist.efficient.LinkedListMergeSort
 import com.zagayevskiy.holidays.sort.linkedlist.efficient.LinkedListQuickSort
 import com.zagayevskiy.holidays.sort.linkedlist.extension.countingSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListBubbleSort
+import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListInsertionSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListSelectionSort
 import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.MergeSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.QuickSort
 import com.zagayevskiy.holidays.sort.randomaccess.extension.sortCounting
 import com.zagayevskiy.holidays.sort.randomaccess.simple.BubbleSort
+import com.zagayevskiy.holidays.sort.randomaccess.simple.InsertionSort
 import com.zagayevskiy.holidays.sort.randomaccess.simple.SelectionSort
 import com.zagayevskiy.holidays.sort.randomaccess.sortedWith
 import com.zagayevskiy.holidays.sort.randomaccess.tree.TreeSort
@@ -40,6 +42,7 @@ class SortTests {
         private fun linkedListSorts(): List<LinkedListSort> = listOf(
             LinkedListBubbleSort(),
             LinkedListSelectionSort(),
+            LinkedListInsertionSort(),
             LinkedListQuickSort(),
             LinkedListMergeSort(),
         )
@@ -49,6 +52,7 @@ class SortTests {
             BubbleSort(),
             SelectionSort(SelectionSort.Mode.Unstable),
             SelectionSort(SelectionSort.Mode.Stable),
+            InsertionSort(),
             QuickSort(),
             MergeSort(MergeSort.Mode.BottomUp),
             MergeSort(MergeSort.Mode.TopDown),
@@ -57,6 +61,7 @@ class SortTests {
         )
 
         private fun data() = buildData {
+            data(-3145.0, 1234.5)
             data(emptyList<Int>())
             data(0)
             data("Hello")

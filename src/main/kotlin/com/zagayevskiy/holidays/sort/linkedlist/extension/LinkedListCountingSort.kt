@@ -20,14 +20,13 @@ fun <T> LinkedListSort.countingSort(items: MutableLinkedList<T>, comparator: Com
             comparator.compare(v1, v2)
         },
         temporaryNodeBuilder = { child ->
-            countingList.run { TemporaryNode(child).asCountingNodes() }
+            countingList.run { CountingNode(TemporaryNode(child)).apply { next = child } }
         },
     )
 
     val readCount = countingList.readCount
     val valueReadCount = countingList.valueReadCount
     val writeCount = countingList.writeCount
-
 
     val timeMillis = measureTimeMillis {
         sort(items, comparator)
@@ -37,7 +36,6 @@ fun <T> LinkedListSort.countingSort(items: MutableLinkedList<T>, comparator: Com
         comparator.compare(i1, i2)
     }.all { it == 0 }
     if (!checkIdentity) throw IllegalStateException("Counting and not counting sorts has different results")
-
 
     return LinkedListSortStatistic(
         timeMillis = timeMillis,
