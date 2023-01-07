@@ -11,6 +11,7 @@ import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListInsertionSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListSelectionSort
 import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.HeapSort
+import com.zagayevskiy.holidays.sort.randomaccess.hybrid.IntroSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.MergeSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.QuickSort
 import com.zagayevskiy.holidays.sort.randomaccess.extension.sortCounting
@@ -32,6 +33,7 @@ fun main() {
     test(MergeSort(MergeSort.Mode.BottomUp), list)
     test(MergeSort(MergeSort.Mode.TopDown), list)
     test(QuickSort(), list)
+    test(IntroSort(), list)
     test(InsertionSort(), list)
     test(SelectionSort(SelectionSort.Mode.Stable), list)
     test(SelectionSort(SelectionSort.Mode.Unstable), list)

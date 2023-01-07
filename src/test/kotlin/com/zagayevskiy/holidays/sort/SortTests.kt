@@ -10,6 +10,7 @@ import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListInsertionSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListSelectionSort
 import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.HeapSort
+import com.zagayevskiy.holidays.sort.randomaccess.hybrid.IntroSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.MergeSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.QuickSort
 import com.zagayevskiy.holidays.sort.randomaccess.extension.sortCounting
@@ -57,6 +58,7 @@ class SortTests {
             SelectionSort(SelectionSort.Mode.Stable),
             InsertionSort(),
             QuickSort(),
+            IntroSort(),
             MergeSort(MergeSort.Mode.BottomUp),
             MergeSort(MergeSort.Mode.TopDown),
             TreeSort(TreeSort.Mode.Naive),
@@ -66,22 +68,30 @@ class SortTests {
 
         @JvmStatic
         private fun data() = buildData {
-            data(-3145.0, 1234.5)
             data(emptyList<Int>())
             data(0)
             data("Hello")
             data(123.0, -3435.0)
             data(-3145.0, 1234.5)
             data(1, 2)
+            data(2, 1)
+            data(1..3)
+            data(3 downTo 1)
             data(3, 1, 2)
             data(3, 1, 4, 1)
+            data(1..4)
+            data(4 downTo 1)
             data(1, 2, 1, 2, 1, 2, 1, 2, 1, 2)
             data("1", "q", "a", "s", "d", "w", "qwerty", "123", "WASP", "uiop")
             data("1", "a", "q", "qwerty", "a", "s", "d", "w", "qwerty", "123", "qwerty", "WASP", "uiop", "a", "a")
             data("1", "a", "q", "qwerty", "a", "s", "d", "w", "qwerty", "123", "qwerty", "WASP", "uiop", "a", "a", comparator = compareByDescending { it })
             data("1", "q", "a", "s", "d", "w", "qwerty", "123", "WASP", "uiop", "123", comparator = compareByDescending { it })
+            data(1..10)
+            data(10 downTo 1)
             data((0..10).shuffled(Random(123456789L)))
             data((0..100).shuffled(Random(123456789L)), comparator = compareByDescending { it })
+            data(1..100)
+            data(100 downTo 1)
             data((0..1000).shuffled(Random(123456789L)))
         }
     }
@@ -187,9 +197,9 @@ class SortableDataBuilder {
         data(items.asList(), comparator)
     }
 
-    fun <TItem> data(items: List<TItem>, comparator: Comparator<TItem> = compareBy { it }) where TItem : Any, TItem : Comparable<TItem> {
+    fun <TItem> data(items: Iterable<TItem>, comparator: Comparator<TItem> = compareBy { it }) where TItem : Any, TItem : Comparable<TItem> {
         @Suppress("UNCHECKED_CAST")
-        list.add(Data(items, comparator) as Data<Any?>)
+        list.add(Data(items.toList(), comparator) as Data<Any?>)
     }
 
     fun build(): List<Data<Any?>> {
