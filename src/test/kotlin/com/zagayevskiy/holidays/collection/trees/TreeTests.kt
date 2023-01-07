@@ -17,7 +17,7 @@ class TreeTests {
         private fun testCases() = treeBuilders() * data()
 
         @JvmStatic
-        private fun data() = listOf(
+        fun data() = listOf(
             emptyList(),
             listOf("q"),
             listOf("q", "a"),
@@ -28,6 +28,7 @@ class TreeTests {
             listOf("s", "q", "a", "w", "a"),
             listOf("q", "w", "a", "w", "a", "qwerty"),
             listOf("q", "a", "w", "a", "qwerty", "uiop"),
+            listOf("2", "1", "2", "1", "2", "1", "2", "1", "2", "1", "2", "1"),
             (0..10).shuffled(Random(1L)).map { it.toString() },
             ((0..100) + (0..100)).shuffled(Random(1L)).map { it.toString() },
             (0..1000).shuffled(Random(1L)).map { it.toString() },

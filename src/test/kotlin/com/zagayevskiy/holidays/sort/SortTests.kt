@@ -9,6 +9,7 @@ import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListBubbleSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListInsertionSort
 import com.zagayevskiy.holidays.sort.linkedlist.simple.LinkedListSelectionSort
 import com.zagayevskiy.holidays.sort.randomaccess.RandomAccessSort
+import com.zagayevskiy.holidays.sort.randomaccess.efficient.HeapSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.MergeSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.QuickSort
 import com.zagayevskiy.holidays.sort.randomaccess.extension.sortCounting
@@ -58,6 +59,7 @@ class SortTests {
             MergeSort(MergeSort.Mode.TopDown),
             TreeSort(TreeSort.Mode.Naive),
             TreeSort(TreeSort.Mode.RB),
+            HeapSort(),
         )
 
         private fun data() = buildData {
