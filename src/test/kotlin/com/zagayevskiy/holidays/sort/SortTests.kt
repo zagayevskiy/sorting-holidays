@@ -14,6 +14,7 @@ import com.zagayevskiy.holidays.sort.randomaccess.efficient.MergeSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.QuickSort
 import com.zagayevskiy.holidays.sort.randomaccess.extension.sortCounting
 import com.zagayevskiy.holidays.sort.randomaccess.simple.BubbleSort
+import com.zagayevskiy.holidays.sort.randomaccess.simple.CycleSort
 import com.zagayevskiy.holidays.sort.randomaccess.simple.InsertionSort
 import com.zagayevskiy.holidays.sort.randomaccess.simple.SelectionSort
 import com.zagayevskiy.holidays.sort.randomaccess.sortedWith
@@ -50,6 +51,7 @@ class SortTests {
 
 
         private fun randomAccessSorts(): List<RandomAccessSort> = listOf(
+            CycleSort(),
             BubbleSort(),
             SelectionSort(SelectionSort.Mode.Unstable),
             SelectionSort(SelectionSort.Mode.Stable),
@@ -62,6 +64,7 @@ class SortTests {
             HeapSort(),
         )
 
+        @JvmStatic
         private fun data() = buildData {
             data(-3145.0, 1234.5)
             data(emptyList<Int>())
@@ -143,6 +146,21 @@ class SortTests {
             }
         }
     }
+
+    @ParameterizedTest
+    @MethodSource("data")
+    fun checkCycleSortWritesCountIsAsMinAsPossible(data: Data<Any?>) {
+        with(data) {
+            val sortedItems = items.sortedWith(comparator)
+
+            val notAtPlace = items.zip(sortedItems) { v1, v2 -> comparator.compare(v1, v2) }.count { it != 0 }
+
+            val result = items.toMutableList().sortCounting(CycleSort(), comparator)
+
+            assertEquals(notAtPlace.toLong(), result.writes)
+        }
+    }
+
 }
 
 

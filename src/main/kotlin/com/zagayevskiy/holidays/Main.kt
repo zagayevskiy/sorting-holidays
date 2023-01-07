@@ -15,6 +15,7 @@ import com.zagayevskiy.holidays.sort.randomaccess.efficient.MergeSort
 import com.zagayevskiy.holidays.sort.randomaccess.efficient.QuickSort
 import com.zagayevskiy.holidays.sort.randomaccess.extension.sortCounting
 import com.zagayevskiy.holidays.sort.randomaccess.simple.BubbleSort
+import com.zagayevskiy.holidays.sort.randomaccess.simple.CycleSort
 import com.zagayevskiy.holidays.sort.randomaccess.simple.InsertionSort
 import com.zagayevskiy.holidays.sort.randomaccess.simple.SelectionSort
 import com.zagayevskiy.holidays.sort.randomaccess.tree.TreeSort
@@ -35,6 +36,7 @@ fun main() {
     test(SelectionSort(SelectionSort.Mode.Stable), list)
     test(SelectionSort(SelectionSort.Mode.Unstable), list)
     test(BubbleSort(), list)
+    test(CycleSort(), list)
     test(TreeSort(TreeSort.Mode.Naive), list)
     test(TreeSort(TreeSort.Mode.RB), list)
 }
